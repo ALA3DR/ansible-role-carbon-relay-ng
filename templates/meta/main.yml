@@ -1,0 +1,22 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: Duologic
+  description: Carbon-relay-ng for Linux.
+  license: "MIT"
+  min_ansible_version: 2.2
+  platforms:
+    - name: EL
+      versions:
+      - 6
+      - 7
+    - name: Debian
+      versions:
+      - all
+    - name: Ubuntu
+      versions:
+      - all
+  galaxy_tags:
+    - system
+    - monitoring
