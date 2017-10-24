@@ -1,37 +1,37 @@
-instance = {{ carbon_relay_ng_instance }}
+instance = '{{ carbon_relay_ng_instance }}'
 max_procs = {{ carbon_relay_ng_max_procs }}
 
-admin_addr = {{ carbon_relay_ng_admin_addr }}
-http_addr = {{ carbon_relay_ng_http_addr }}
-spool_dir = {{ carbon_relay_ng_spool_dir }}
-pid_file = {{ carbon_relay_ng_pid_file }}
+admin_addr = '{{ carbon_relay_ng_admin_addr }}'
+http_addr = '{{ carbon_relay_ng_http_addr }}'
+spool_dir = '{{ carbon_relay_ng_spool_dir }}'
+pid_file = '{{ carbon_relay_ng_pid_file }}'
 
-log_level = {{ carbon_relay_ng_log_level }}
+log_level = '{{ carbon_relay_ng_log_level }}'
 
-validation_level_legacy = {{ carbon_relay_ng_validation_level_legacy }}
-validation_level_m20 = {{ carbon_relay_ng_validation_level_m20 }}
+validation_level_legacy = '{{ carbon_relay_ng_validation_level_legacy }}'
+validation_level_m20 = '{{ carbon_relay_ng_validation_level_m20 }}'
 
-validate_order = {{ carbon_relay_ng_validate_order }}
+validate_order = {{ carbon_relay_ng_validate_order|lower }}
 
-bad_metrics_max_age = {{ carbon_relay_ng_bad_metrics_max_age }}
+bad_metrics_max_age = '{{ carbon_relay_ng_bad_metrics_max_age }}'
 
 
-listen_addr = {{ carbon_relay_ng_listen_addr }}
+listen_addr = '{{ carbon_relay_ng_listen_addr }}'
 
-pickle_addr = {{ carbon_relay_ng_pickle_addr }}
+pickle_addr = '{{ carbon_relay_ng_pickle_addr }}'
 
 [amqp]
-amqp_enabled = {{ carbon_relay_ng_amqp_enabled }}
-amqp_host = {{ carbon_relay_ng_amqp_host }}
+amqp_enabled = {{ carbon_relay_ng_amqp_enabled|lower }}
+amqp_host = '{{ carbon_relay_ng_amqp_host }}'
 amqp_port = {{ carbon_relay_ng_amqp_port }}
-amqp_user = {{ carbon_relay_ng_amqp_user }}
-amqp_password = {{ carbon_relay_ng_amqp_password }}
-amqp_vhost = {{ carbon_relay_ng_amqp_vhost }}
-amqp_exchange = {{ carbon_relay_ng_amqp_exchange }}
-amqp_queue = {{ carbon_relay_ng_amqp_queue }}
-amqp_key = {{ carbon_relay_ng_amqp_key }}
-amqp_durable = {{ carbon_relay_ng_amqp_durable }}
-amqp_exclusive = {{ carbon_relay_ng_amqp_exclusive }}
+amqp_user = '{{ carbon_relay_ng_amqp_user }}'
+amqp_password = '{{ carbon_relay_ng_amqp_password }}'
+amqp_vhost = '{{ carbon_relay_ng_amqp_vhost }}'
+amqp_exchange = '{{ carbon_relay_ng_amqp_exchange }}'
+amqp_queue = '{{ carbon_relay_ng_amqp_queue }}'
+amqp_key = '{{ carbon_relay_ng_amqp_key }}'
+amqp_durable = {{ carbon_relay_ng_amqp_durable|lower }}
+amqp_exclusive = {{ carbon_relay_ng_amqp_exclusive|lower }}
 
 blacklist = {{ carbon_relay_ng_blacklist }}
 
@@ -47,19 +47,19 @@ wait = {{ item.wait }}
 
 {% for item in carbon_relay_ng_rewriters %}
 [[rewriter]]
-old = '{{ item.old }}
-new = '{{ item.new }}
+old = '{{ item.old }}'
+new = '{{ item.new }}'
 max = {{ item.max }}
 
 {% endfor %}
 
 {% for item in carbon_relay_ng_routers %}
 [[route]]
-key = '{{ item.key }}
-type = '{{ item.type }}
-prefix = '{{ item.prefix }}
-substr = '{{ item.substr }}
-regex = '{{ item.regex }}
+key = '{{ item.key }}'
+type = '{{ item.type }}'
+prefix = '{{ item.prefix }}'
+substr = '{{ item.substr }}'
+regex = '{{ item.regex }}'
 destinations = {{ item.destinations }}
 
 {% endfor %}
@@ -68,5 +68,5 @@ destinations = {{ item.destinations }}
 cmds = {{ carbon_relay_ng_cmds }}
 
 [instrumentation]
-graphite_addr = {{ carbon_relay_ng_graphite_addr }}
+graphite_addr = '{{ carbon_relay_ng_graphite_addr }}'
 graphite_interval = {{ carbon_relay_ng_graphite_interval }}
