@@ -1,6 +1,6 @@
 ---
 - name: Install carbon-relay-ng
-  yum: pkg=carbon-relay-ng state=installed
+  apt: pkg=carbon-relay-ng state=present
   when: ansible_os_family == "Debian"
 
 - name: Install carbon-relay-ng
