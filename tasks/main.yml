@@ -34,6 +34,11 @@
     owner: carbon-relay-ng
   notify: restart carbon-relay-ng
 
+- name: Create carbon-relay-ng home on boot
+  copy:
+    content: "D /var/run/carbon-relay-ng 0755 carbon-relay-ng carbon-relay-ng"
+    dest: "/etc/tmpfiles.d/carbon-relay-ng.conf"
+
 - name: Ensure carbon-relay-ng is started and enabled on boot
   service:
       name: carbon-relay-ng
