@@ -11,6 +11,28 @@
   template:
       src: carbon-relay-ng.conf.j2
       dest: /etc/carbon-relay-ng/carbon-relay-ng.conf
+  notify: restart carbon-relay-ng
+
+- name: Add group !workaround!
+  group:
+    name: carbon-relay-ng
+    system: yes
+  notify: restart carbon-relay-ng
+
+- name: Add user !workaround!
+  user:
+    name: carbon-relay-ng
+    group: carbon-relay-ng
+    home: "/var/run/carbon-relay-ng"
+    shell: "/usr/sbin/nologin"
+    system: yes
+  notify: restart carbon-relay-ng
+
+- name: Chown carbon-relay-ng home
+  file:
+    path: "/var/run/carbon-relay-ng"
+    owner: carbon-relay-ng
+  notify: restart carbon-relay-ng
 
 - name: Ensure carbon-relay-ng is started and enabled on boot
   service:
