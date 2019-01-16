@@ -7,14 +7,15 @@ carbon_relay_ng_max_procs: 2
 carbon_relay_ng_admin_addr: "0.0.0.0:2004"
 carbon_relay_ng_http_addr: "0.0.0.0:8081"
 #spool_dir: "/var/spool/carbon-relay-ng"
-carbon_relay_ng_spool_dir: "spool"
+carbon_relay_ng_spool_dir: "/var/spool/carbon-relay-ng"
 #pid_file: "/var/run/carbon-relay-ng.pid"
-carbon_relay_ng_pid_file: "carbon-relay-ng.pid"
+carbon_relay_ng_run_dir: "/var/run/carbon-relay-ng"
+carbon_relay_ng_pid_file: "{{ carbon_relay_ng_run_dir }}/carbon-relay-ng.pid"
 
 ## Logging ##
 # one of critical error warning notice info debug
 # see docs/logging.md for level descriptions
-carbon_relay_ng_log_level: "notice"
+carbon_relay_ng_log_level: "info"
 
 ## Validation of inputs ##
 # Metric name validation strictness for legacy metrics. Valid values are:

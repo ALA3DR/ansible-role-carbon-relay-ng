@@ -5,7 +5,7 @@ galaxy_info:
   author: Duologic
   description: Carbon-relay-ng for Linux.
   license: "MIT"
-  min_ansible_version: 2.2
+  min_ansible_version: 2.7
   platforms:
     - name: EL
       versions:

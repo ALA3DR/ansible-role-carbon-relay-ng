@@ -7,6 +7,11 @@
   yum: pkg=carbon-relay-ng state=installed
   when: ansible_os_family == "RedHat"
 
+- name: Create carbon-relay-ng etc-dir
+  file:
+    path: /etc/carbon-relay-ng
+    state: directory
+
 - name: Install carbon-relay-ng configuration
   template:
       src: carbon-relay-ng.conf.j2
@@ -23,21 +28,32 @@
   user:
     name: carbon-relay-ng
     group: carbon-relay-ng
-    home: "/var/run/carbon-relay-ng"
+    home: '{{ carbon_relay_ng_run_dir }}'
     shell: "/usr/sbin/nologin"
     system: yes
   notify: restart carbon-relay-ng
 
 - name: Chown carbon-relay-ng home
   file:
-    path: "/var/run/carbon-relay-ng"
+    path: '{{ carbon_relay_ng_run_dir }}'
     owner: carbon-relay-ng
   notify: restart carbon-relay-ng
 
 - name: Create carbon-relay-ng home on boot
   copy:
-    content: "D /var/run/carbon-relay-ng 0755 carbon-relay-ng carbon-relay-ng"
+    content: "D {{ carbon_relay_ng_run_dir }} 0755 carbon-relay-ng carbon-relay-ng"
     dest: "/etc/tmpfiles.d/carbon-relay-ng.conf"
+
+- name: Create carbon-relay-ng spool-dir
+  file:
+    path: '{{ carbon_relay_ng_spool_dir }}'
+    state: directory
+
+- name: Chown carbon-relay-ng spool
+  file:
+    path: '{{ carbon_relay_ng_spool_dir }}'
+    owner: carbon-relay-ng
+  notify: restart carbon-relay-ng
 
 - name: Ensure carbon-relay-ng is started and enabled on boot
   service:

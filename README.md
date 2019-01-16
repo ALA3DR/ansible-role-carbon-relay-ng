@@ -1,7 +1,7 @@
 Duologic.carbon-relay-ng
 ========================
 
-This role configures and installs carbon-relay-ng with the OS package manager.
+This role configures and installs carbon-relay-ng with the OS package manager. Tested CentOS 7.
 
 Requriments
 -----------
