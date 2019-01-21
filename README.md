@@ -3,7 +3,7 @@ Duologic.carbon-relay-ng
 
 This role configures and installs carbon-relay-ng with the OS package manager. Tested CentOS 7.
 
-Requriments
+Requirements
 -----------
 
 You probably need to add a repository that has the carbon-relay-ng package for your distribution. I've used raintaink's PackageCloud. See the example Playbook.
