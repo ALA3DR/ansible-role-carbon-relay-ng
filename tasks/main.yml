@@ -1,10 +1,18 @@
 ---
 - name: Install carbon-relay-ng
   apt: pkg=carbon-relay-ng state=present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
   when: ansible_os_family == "Debian"
 
 - name: Install carbon-relay-ng
   yum: pkg=carbon-relay-ng state=installed
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
   when: ansible_os_family == "RedHat"
 
 - name: Create carbon-relay-ng etc-dir
