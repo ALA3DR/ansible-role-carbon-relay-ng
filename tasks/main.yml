@@ -63,8 +63,7 @@
     owner: carbon-relay-ng
   notify: restart carbon-relay-ng
 
-- name: Ensure carbon-relay-ng is started and enabled on boot
+- name: Ensure carbon-relay-ng enabled on boot
   service:
     name: carbon-relay-ng
-    state: started
     enabled: "{{ carbon_relay_ng_enabled_on_boot }}"
