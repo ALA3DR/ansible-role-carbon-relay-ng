@@ -1,6 +1,8 @@
 Duologic.carbon-relay-ng
 ========================
 
+[![Build Status](https://travis-ci.org/Duologic/ansible-role-carbon-relay-ng.svg?branch=master)](https://travis-ci.org/Duologic/ansible-role-carbon-relay-ng)
+
 This role configures and installs carbon-relay-ng with the OS package manager. Tested CentOS 7.
 
 Requirements

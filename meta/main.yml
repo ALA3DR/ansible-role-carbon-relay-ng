@@ -2,6 +2,7 @@
 dependencies: []
 
 galaxy_info:
+  role_name: carbon-relay-ng
   author: Duologic
   description: Carbon-relay-ng for Linux.
   license: "MIT"
