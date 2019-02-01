@@ -1,0 +1,30 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  vars:
+      repository: 'raintank/raintank'
+
+  pre_tasks:
+      - name: Set facts for packagecloud configuration (RedHat)
+        when: ansible_os_family == 'RedHat'
+        set_fact:
+            os: 'el'
+            version: '{{ ansible_distribution_major_version }}'
+
+      - name: Set facts for packagecloud configuration (Debian)
+        when: ansible_distribution == 'Debian'
+        set_fact:
+            os: 'Debian'
+            version: 'jessie'
+
+      - name: Set facts for packagecloud configuration (Ubuntu)
+        when: ansible_distribution == 'Ubuntu'
+        set_fact:
+            os: 'ubuntu'
+            version: 'xenial'
+
+  roles:
+      - role: computology.packagecloud
+      - role: Duologic.carbon-relay-ng
