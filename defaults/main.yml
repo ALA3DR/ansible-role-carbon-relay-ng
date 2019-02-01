@@ -6,9 +6,9 @@ carbon_relay_ng_max_procs: 2
 
 carbon_relay_ng_admin_addr: "0.0.0.0:2004"
 carbon_relay_ng_http_addr: "0.0.0.0:8081"
-#spool_dir: "/var/spool/carbon-relay-ng"
+# spool_dir: "/var/spool/carbon-relay-ng"
 carbon_relay_ng_spool_dir: "/var/spool/carbon-relay-ng"
-#pid_file: "/var/run/carbon-relay-ng.pid"
+# pid_file: "/var/run/carbon-relay-ng.pid"
 carbon_relay_ng_run_dir: "/var/run/carbon-relay-ng"
 carbon_relay_ng_pid_file: "{{ carbon_relay_ng_run_dir }}/carbon-relay-ng.pid"
 
@@ -64,78 +64,79 @@ carbon_relay_ng_blacklist: [
 ]
 
 carbon_relay_ng_aggregations:
-    - function: 'sum'
-      regex: '^stats\.timers\.(app|proxy|static)[0-9]+\.requests\.(.*)'
-      format: 'stats.timers._sum_$1.requests.$2'
-      interval: 10
-      wait: 20
-    - function: 'avg'
-      regex: '^stats\.timers\.(app|proxy|static)[0-9]+\.requests\.(.*)'
-      format: 'stats.timers._avg_$1.requests.$2'
-      interval: 5
-      wait: 10
+  - function: 'sum'
+    regex: '^stats\.timers\.(app|proxy|static)[0-9]+\.requests\.(.*)'
+    format: 'stats.timers._sum_$1.requests.$2'
+    interval: 10
+    wait: 20
+  - function: 'avg'
+    regex: '^stats\.timers\.(app|proxy|static)[0-9]+\.requests\.(.*)'
+    format: 'stats.timers._avg_$1.requests.$2'
+    interval: 5
+    wait: 10
 
 carbon_relay_ng_rewriters:
-    - old: 'testold'
-      new: 'testnew'
-      max: -1
+  - old: 'testold'
+    new: 'testnew'
+    max: -1
 
 carbon_relay_ng_routers:
-    - key: 'carbon-default'
-      type: 'sendAllMatch'
-      prefix: ''
-      substr: ''
-      regex: ''
-      destinations: [
-          '127.0.0.1:2003 spool=true pickle=false'
-      ]
-    - key: 'carbon-tagger'
-      type: 'sendAllMatch'
-      prefix: ''
-      substr: '='
-      regex: ''
-      destinations: [
-        '127.0.0.1:2006'
-      ]
-    - key: 'analytics'
-      type: 'sendFirstMatch'
-      prefix: ''
-      substr: ''
-      regex: '(Err/s|wait_time|logger)'
-      destinations: [
-        'graphite.prod:2003 prefix=prod. spool=true pickle=true',
-        'graphite.staging:2003 prefix=staging. spool=true pickle=true'
-      ]
+  - key: 'carbon-default'
+    type: 'sendAllMatch'
+    prefix: ''
+    substr: ''
+    regex: ''
+    destinations: [
+      '127.0.0.1:2003 spool=true pickle=false'
+    ]
+  - key: 'carbon-tagger'
+    type: 'sendAllMatch'
+    prefix: ''
+    substr: '='
+    regex: ''
+    destinations: [
+      '127.0.0.1:2006'
+    ]
+  - key: 'analytics'
+    type: 'sendFirstMatch'
+    prefix: ''
+    substr: ''
+    regex: '(Err/s|wait_time|logger)'
+    destinations: [
+      'graphite.prod:2003 prefix=prod. spool=true pickle=true',
+      'graphite.staging:2003 prefix=staging. spool=true pickle=true'
+    ]
 
-#[init]
+# [init]
 # you can also put init commands here, in the same format as you'd use for the telnet interface
 # (which is a bit tricky to use with its double spaces etc, so you're typically better off defining
 # your setup via the sections above)
 carbon_relay_ng_cmds: []
 # here are some examples:
-     # a plain carbon route that sends all data to the specified carbon (graphite) server (note the double space)
-     #'addRoute sendAllMatch carbon-default  your-graphite-server:2003 spool=true pickle=false',
+# a plain carbon route that sends all data to the specified carbon (graphite) server (note the double space)
+# 'addRoute sendAllMatch carbon-default  your-graphite-server:2003 spool=true pickle=false',
 
-     # example route for https://grafana.com/cloud/metrics (note the double space)
-     #'addRoute grafanaNet grafanaNet  your-base-url/metrics your-grafana.net-api-key /path/to/storage-schemas.conf',
+# example route for https://grafana.com/cloud/metrics (note the double space)
+# 'addRoute grafanaNet grafanaNet  your-base-url/metrics your-grafana.net-api-key /path/to/storage-schemas.conf',
 
-     # ignore hosts that don't set their hostname properly via prefix match
-     #'addBlack prefix collectd.localhost',
+# ignore hosts that don't set their hostname properly via prefix match
+# 'addBlack prefix collectd.localhost',
 
-     # ignore foo.<anything>.cpu.... via regex match
-     #'addBlack regex ^foo\..*\.cpu+',
+# ignore foo.<anything>.cpu.... via regex match
+# 'addBlack regex ^foo\..*\.cpu+',
 
-     # aggregate timer metrics with sums
-     #'addAgg sum ^stats\.timers\.(app|proxy|static)[0-9]+\.requests\.(.*) stats.timers._sum_$1.requests.$2 10 20',
+# aggregate timer metrics with sums
+# 'addAgg sum ^stats\.timers\.(app|proxy|static)[0-9]+\.requests\.(.*) stats.timers._sum_$1.requests.$2 10 20',
 
-     # aggregate timer metrics with averages
-     #'addAgg avg ^stats\.timers\.(app|proxy|static)[0-9]+\.requests\.(.*) stats.timers._avg_$1.requests.$2 5 10',
+# aggregate timer metrics with averages
+# 'addAgg avg ^stats\.timers\.(app|proxy|static)[0-9]+\.requests\.(.*) stats.timers._avg_$1.requests.$2 5 10',
 
-     # all metrics with '=' in them are metrics2.0, send to carbon-tagger service (note the double space)
-     #'addRoute sendAllMatch carbon-tagger sub==  127.0.0.1:2006',
+# all metrics with '=' in them are metrics2.0, send to carbon-tagger service (note the double space)
+# 'addRoute sendAllMatch carbon-tagger sub==  127.0.0.1:2006',
 
-     # send to the first carbon destination that matches the metric (note the double spaces between destinations)
-     #'addRoute sendFirstMatch analytics regex=(Err/s|wait_time|logger)  graphite.prod:2003 prefix=prod. spool=true pickle=true  graphite.staging:2003 prefix=staging. spool=true pickle=true'
+# send to the first carbon destination that matches the metric (note the double spaces between destinations)
+# 'addRoute sendFirstMatch analytics regex=(Err/s|wait_time|logger)  graphite.prod:2003 prefix=prod. spool=true \
+#                                            pickle=true  graphite.staging:2003 prefix=staging. spool=true pickle=true'
 
 ## Instrumentation ##
 # in addition to serving internal metrics via expvar, you can send them to graphite/carbon
