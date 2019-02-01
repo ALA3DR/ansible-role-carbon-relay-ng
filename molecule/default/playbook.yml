@@ -26,5 +26,5 @@
             version: 'xenial'
 
   roles:
-      - role: computology.packagecloud
+      - role: Duologic.packagecloud
       - role: Duologic.carbon-relay-ng
